@@ -5,13 +5,7 @@ const Product = require('../models/Product');
 const handleAsyncErrors = (asyncFn) => {
     return (req, res, next) => {
         asyncFn(req, res, next).catch((err) => {
-            if (err.name === 'CastError' && err.kind === 'ObjectId') {
-                // Handling invalid ObjectId errors
-                return res.status(404).json({
-                    status: 'Error',
-                    message: 'Invalid ID',
-                });
-            }
+           //Handle 404 errors here
 
             res.status(500).json({
                 status: 'Error',
@@ -22,7 +16,7 @@ const handleAsyncErrors = (asyncFn) => {
     };
 };
 
-
+//Make appropriate changes to these controllers
 const searchProducts = handleAsyncErrors(async (req, res) => {
     const { page = 1, limit = 10, search, category, sort, minPrice, maxPrice } = req.query;
     const query = {};
